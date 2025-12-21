@@ -1,0 +1,31 @@
+<%- include('sidebar') %>
+    <div class="container main-content">
+        
+        <div class="statistics-cards">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Livros</h5>
+                    <p class="card-text"><%= books.total %></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Usuários</h5>
+                    <p class="card-text"><%= users.total %></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Empréstimos</h5>
+                    <p class="card-text"><%= lendings.total %></p>
+                </div>
+            </div>
+        </div>
+        <div class="loans-history" id="loansHistoryGraph">
+    <h3>Histórico de Empréstimos - Últimos 7 Dias</h3>
+    <canvas id="loansHistoryChart"></canvas>
+</div>
+
+</div>
+
+<%- include('../partials/footer') %>

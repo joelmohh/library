@@ -1,0 +1,133 @@
+<%- include('sidebar') %>
+    <div class="container main-content books-page">
+
+        <h1>Gerenciar Empréstimos</h1>
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#lendingModal"><i
+                class="fa-solid fa-plus"></i> Novo Empréstimo</button>
+
+        <div class="search-box">
+            <div class="search-fields mb-3">
+                <input type="text" id="searchInputLendings" class="form-control search-field"
+                    placeholder="Search by livro, estudante, ou data">
+                <button id="searchBtnLendings" class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i>
+                    Search</button>
+            </div>
+
+            <div class="books-render">
+                <table class="table" id="lendingsTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Livro</th>
+                            <th scope="col">Aluno</th>
+                            <th scope="col">Data de Empréstimo</th>
+                            <th scope="col">Data de Devolução</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <% if (lendings.total===0) { %>
+                            <tr>
+                                <td colspan="5" class="text-center">Nenhum empréstimo encontrado.</td>
+                            </tr>
+                            <% } else { %>
+                                <% lendings.list.forEach(function(lending) { const lendDate=new Date(lending.lendDate);
+                                    const returnDate=lending.returnDate ? new Date(lending.returnDate) : null; const
+                                    formatDate=(date)=> {
+                                    const day = String(date.getUTCDate()).padStart(2, '0');
+                                    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+                                    const year = date.getUTCFullYear();
+                                    return `${day}/${month}/${year}`;
+                                    };
+                                    %>
+                                    <% const today=new Date(); %> 
+                                        <% lendings.list.forEach(function(lending) { const returnDate=lending.returnDate
+                                            ? new Date(lending.returnDate) : null; 
+                                            const isPast=(date)=> date && date.getTime() <
+                                                today.getTime(); %>
+                                                <tr class="item">
+                                                    <td>
+                                                        <%= lending.book.title %>
+                                                    </td>
+                                                    <td>
+                                                        <%= lending.user.name %>
+                                                    </td>
+                                                    <td>
+                                                        <% const lendDate=new Date(lending.lendDate); const
+                                                            lendDay=String(lendDate.getUTCDate()).padStart(2,'0'); const
+                                                            lendMonth=String(lendDate.getUTCMonth()+1).padStart(2,'0');
+                                                            const lendYear=lendDate.getUTCFullYear(); %>
+                                                            <%= `${lendDay}/${lendMonth}/${lendYear}` %>
+                                                    </td>
+                                                    <td>
+                                                        <% if(returnDate) { const
+                                                            returnDay=String(returnDate.getUTCDate()).padStart(2,'0');
+                                                            const
+                                                            returnMonth=String(returnDate.getUTCMonth()+1).padStart(2,'0');
+                                                            const returnYear=returnDate.getUTCFullYear(); %>
+                                                            <%= `${returnDay}/${returnMonth}/${returnYear}` %>
+                                                                <% } %>
+                                                    </td>
+                                                    <td>
+                                                        <% if(lending.returned) { %>
+                                                            <span class="badge bg-success">Devolvido</span>
+                                                            <% } else if(returnDate && isPast(returnDate)) { %>
+                                                                <span class="badge bg-danger">Expirado</span>
+                                                                <% } else { %>
+                                                                    <span class="badge bg-warning text-dark">Emprestado</span>
+                                                                    <% } %>
+                                                    </td>
+                                                    <td class="action-buttons">
+                                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editLendingModal"
+                                                            data-item='<%= JSON.stringify(lending) %>'>
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <% }); %>
+
+                                                    <% }); %>
+                                                        <% } %>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination-wrapper">
+                <div class="items-controller">
+                    <label for="rowsPerPage">Itens por página:</label>
+                    <select class="form-select" id="rowsPerPage">
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination mb-0" id="paginationContainer">
+                        <li class="page-item" id="btn-prev">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true"><i class="fa-solid fa-angles-left"></i></span>
+                            </a>
+                        </li>
+
+                        <div id="page-numbers" style="display: flex;"></div>
+
+                        <li class="page-item" id="btn-next">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true"><i class="fa-solid fa-angles-right"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initTablePagination('tableBody', 'rowsPerPage', 'paginationContainer', 'btn-prev', 'btn-next');
+            initTableSearch('searchInputBooks', 'searchBtnBooks', 'tableBody');
+        });
+    </script>
+
+    <%- include('../partials/footer') %>

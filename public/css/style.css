@@ -1,0 +1,456 @@
+/*
+    CSS Modules Import
+*/
+
+@import url('toast.css');
+
+/*
+    General Styles
+*/
+:root {
+    --primary-color: #090C9B;
+    --primary-color-hover: #070aa7;
+    --secondary-color: #B4C5E4;
+    --secondary-color-hover: #E6E8F1;
+
+    --primary-background: #252627;
+    --secondary-background: #ffffff;
+
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-background);
+    color: var(--secondary-background);
+    font-family: var(--font-family);
+}
+.btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-background);
+    border: 2px solid var(--primary-color);
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-hover);
+    border: 2px solid var(--primary-color-hover);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: black;
+    font-weight: 500;
+    border: 2px solid var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: transparent;
+    border: 2px solid var(--secondary-color-hover);
+    color: var(--secondary-color-hover);
+}
+
+.btn i {
+    margin-right: 0.5rem;
+    margin-left: -10px;
+}
+
+.form-control {
+    padding: .6rem 1rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    color: #fff;
+    background-color: var(--primary-background);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-control:focus {
+    border: 2px solid var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px var(--primary-color);
+    background-color: var(--primary-background);
+    color: #fff;
+}
+.form-check-input{
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    cursor: pointer;
+    background-color: var(--primary-background) ;
+}
+.form-check-input:focus {
+    outline: none;
+    box-shadow: 0 0 5px var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    background-color: var(--secondary-color);
+}
+.form-check-input:checked {
+    background-color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+}
+
+
+/*
+    Navbar Styles
+*/
+.navbar {
+    padding: 1rem 3rem;
+    background-color: var(--primary-background);
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    border-radius: 0px 0px 10px 10px;
+}
+
+.logo a {
+    font-family: var(--font-family);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--secondary-background);
+    text-decoration: none;
+}
+
+/* 
+    Search Styles
+*/
+.search-box{
+    padding: 20px 10px;
+    border-radius: 10px;
+    background-color: var(--primary-background);
+}
+.search-fields {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.search-fields input {
+    flex: 1;
+    padding: .6rem 1rem;
+    background-color: var(--primary-background);
+    margin: 0;
+}
+
+.search-fields .btn {
+    width: 130px;
+    padding: .6rem 1rem;
+    margin: 0;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-filters {
+    display: flex; 
+    gap: 20px;  
+    padding: 15px 0px ;    
+}
+
+.search-filters label {
+    font-weight: 500;
+    margin-right: 8px;
+    font-size: 0.9rem;
+    color: var(--secondary-color); 
+}
+
+.form-field {
+    display: flex;
+    align-items: center;
+}
+
+.search-filters .form-select {
+    background-color: transparent;
+    border: 2px solid var(--secondary-color);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.3rem 2.2rem 0.3rem 0.7rem; 
+    font-size: 0.95rem;
+    cursor: pointer;
+    min-width: 120px; 
+}
+
+.search-filters .form-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem var(--secondary-color);
+    background-color: var(--primary-background);
+}
+
+.search-filters .form-select option {
+    background-color: var(--primary-background);
+    color: #fff;
+}
+
+.search-filters .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding-left: 0; 
+    cursor: pointer;
+}
+
+.search-filters .form-check-input {
+    margin: 0; 
+    width: 1.2em;
+    height: 1.2em;
+    cursor: pointer;
+    float: none; 
+}
+
+@media (max-width: 768px) {
+    .search-filters {
+        flex-direction: column;
+        align-items: stretch; 
+    }
+    
+    .form-field {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .search-filters .form-select {
+        width: 100%;
+    }
+}
+
+.genreField {
+    align-self: flex-end;
+}
+.form-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.search-filters label {
+    margin-right: 0;
+    margin-bottom: -4px;
+}
+#genreField {
+    margin-left: auto;
+}
+
+/*
+    Table Styles
+*/
+.books-render {
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    overflow: hidden; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background-color: var(--secondary-color);
+    color: #000;
+    border: none;
+    padding: 15px;
+    font-weight: 600;
+    font-family: var(--font-family);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody td {
+    padding: 15px;
+    vertical-align: middle;
+    background-color: var(--primary-background); 
+    border-bottom: 2px solid rgba(180, 197, 228, 0.2); 
+    color: #e0e0e0;
+}
+
+.table tbody tr:hover td {
+    background-color: rgba(8, 10, 121, 0.1); 
+    color: #fff;
+}
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+/*
+    Pagination Styles
+*/
+.pagination-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 1rem;
+    background-color: transparent;
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.items-controller {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.items-controller select {
+    width: auto;
+    background-color: transparent;
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;    
+}
+
+.items-controller select:focus {
+    background-color: transparent;
+    border-color: var(--secondary-color);
+    color: #fff;
+    box-shadow: none;
+}
+
+.items-controller select option {
+    background-color: transparent;
+    color: #fff;
+}
+
+.pagination .page-link {
+    background-color: transparent;
+    border: 2px solid var(--secondary-color);
+    color: #fff;
+    margin: 0 3px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: #000;
+}
+
+.pagination .page-link:focus {
+    box-shadow: none;
+}
+
+.pagination .page-item.disabled .page-link {
+    opacity: 0.5;
+    border-color: var(--secondary-color);
+    background-color: transparent;
+}
+@media (max-width: 768px) {
+    .pagination-wrapper {
+        flex-direction: column;
+        gap: 15px;
+        height: auto;
+    }
+
+    .items-controller {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+}
+/*
+    Auth Form Styles
+*/
+.auth-form {
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: var(--primary-background);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.forgot-password{
+    margin-left: 130px;
+    margin-top: -10px;
+}
+ a{
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+.or{
+    text-align: center;
+    margin: 20px 0;
+    color: var(--secondary-color);
+}
+.or::before, .or::after{
+    content: "";
+    display: inline-block;
+    width: 40%;
+    height: 1px;
+    background-color: var(--secondary-color);
+    vertical-align: middle;
+    margin: 0 10px;
+}
+.muted{
+    text-align: center;
+    margin-top: 15px;
+    color: #707070;
+}
+/*
+    Dashboard Styles
+*/
+.dropdown-menu {
+    background-color: var(--primary-background);
+    border: 2px solid var(--secondary-color);
+    color: #fff;
+}
+
+.dropdown-item {
+    color: #fff;
+}
+.dropdown-toggle{
+    color: #fff;
+}
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--secondary-color);
+    color: #000;
+}
+
+.dropdown-item i {
+    margin-right: 8px;
+}
+
+.dropdown-item .danger {
+    color: #ff4d4d;
+}
+
+.btn-secondary.dropdown-toggle.show,
+.btn-secondary.dropdown-toggle:active {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+    color: #fff !important;
+}
