@@ -3,20 +3,20 @@
 
 
         <% if( page=='students' ){ %>
-            <h1>Gerenciar Estudantes</h1>
+            <h1>Manage Students</h1>
             <button class="btn btn-secondary btn-add" data-bs-toggle="modal" data-bs-target="#newStudentModal">
-                <i class="fa-solid fa-plus"></i> Novo Estudante
+                <i class="fa-solid fa-plus"></i> New Student
             </button>
             <% } else if( page=='teachers' ){ %>
-                <h1>Gerenciar Professores</h1>
+                <h1>Manage Teachers</h1>
                 <button class="btn btn-secondary btn-add" data-bs-toggle="modal" data-bs-target="#newTeacherModal">
-                    <i class="fa-solid fa-plus"></i> Novo Professor
+                    <i class="fa-solid fa-plus"></i> New Teacher
                 </button>
                 <% } %>
                     <div class="search-box">
                         <div class="search-fields mb-3">
                             <input type="text" id="searchInputUsers" class="form-control search-field"
-                                placeholder="Search por nome, email, ou função">
+                                placeholder="Search by name, email, or role">
                             <button id="searchBtnUsers" class="btn btn-secondary"><i
                                     class="fa-solid fa-magnifying-glass"></i>
                                 Search</button>
@@ -26,16 +26,16 @@
                             <table class="table" id="lendingsTable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Nome</th>
+                                        <th scope="col">Name</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Usuário</th>
-                                        <th scope="col" style="width: 10rem; text-align: center;">Ações</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col" style="width: 10rem; text-align: center;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody">
                                     <% if (users.total===0) { %>
                                         <tr>
-                                            <td colspan="4" class="text-center">Nenhum usuário encontrado.</td>
+                                            <td colspan="4" class="text-center">No users found.</td>
                                         </tr>
                                         <% } else { %>
                                             <% users.list.forEach(function(user) { %>
@@ -69,7 +69,7 @@
 
                         <div class="pagination-wrapper">
                             <div class="items-controller">
-                                <label for="rowsPerPage">Itens por página:</label>
+                                <label for="rowsPerPage">Items per page:</label>
                                 <select class="form-select" id="rowsPerPage">
                                     <option value="10" selected>10</option>
                                     <option value="20">20</option>

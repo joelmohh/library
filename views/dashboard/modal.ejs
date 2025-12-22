@@ -8,22 +8,22 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Livro</h1>
+                <h1 class="modal-title fs-5">Book</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="bookForm">
                 <div class="modal-body">
                     <input type="hidden" name="id">
                     <div class="mb-3">
-                        <label class="form-label">Título</label>
+                        <label class="form-label">Title</label>
                         <input type="text" id="newBookTitle" name="title" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Categoria</label>
+                        <label class="form-label">Category</label>
                         <input type="text" id="newBookCategory" name="category" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Autor</label>
+                        <label class="form-label">Author</label>
                         <input type="text" id="newBookAuthor" name="author" class="form-control" required>
                     </div>
                     <div class="mb-3">
@@ -32,8 +32,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -44,22 +44,22 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Editar Livro</h1>
+                <h1 class="modal-title fs-5">Edit Book</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="editBookForm">
                 <div class="modal-body">
                     <input type="hidden" name="id">
                     <div class="mb-3">
-                        <label class="form-label">Título</label>
+                        <label class="form-label">Title</label>
                         <input type="text" id="editBookTitle" name="title" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Categoria</label>
+                        <label class="form-label">Category</label>
                         <input type="text" id="editBookCategory" name="category" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Autor</label>
+                        <label class="form-label">Author</label>
                         <input type="text" id="editBookAuthor" name="author" class="form-control" required>
                     </div>
                     <div class="mb-3">
@@ -68,8 +68,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -80,18 +80,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Deletar Livro</h1>
+                <h1 class="modal-title fs-5">Delete Book</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="deleteBookForm">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="deleteBookId">
-                    <h2>Tem certeza que deseja deletar este livro?</h2>
+                    <h2>Are you sure you want to delete this book?</h2>
                     <h3 id="deleteBookTitle" class="text-danger"></h3>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-danger">Deletar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>
@@ -108,37 +108,37 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Novo Empréstimo</h1>
+                <h1 class="modal-title fs-5">New Lending</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="lendingForm">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Livro</label>
+                        <label class="form-label">Book</label>
                     <select class="form-control" name="books" id="newLendingBook">
-                            <option selected>Selecione um livro</option>
+                            <option selected>Select a book</option>
                         <% books.list.forEach(function(book) { %>
                             <option value="<%= book._id %>"><%= book.title %></option>
                         <% }); %>
                     </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Aluno</label>
+                        <label class="form-label">Student</label>
                         <select class="form-control" name="users" id="newLendingUser">
-                            <option selected>Selecione um usuário</option>
+                            <option selected>Select a user</option>
                             <% users.list.forEach(function(user) { %>
                                 <option value="<%= user._id %>"><%= user.name %></option>
                             <% }); %>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Data de Devolução</label>
+                        <label class="form-label">Return Date</label>
                         <input type="date" id="newLendingReturnDate" name="returnDate" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="newLendingBtn" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="newLendingBtn" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -149,20 +149,20 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Estender Empréstimo</h1>
+                <h1 class="modal-title fs-5">Extend Lending</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="extendForm">
                 <div class="modal-body">
                     <input type="hidden" name="id" id="extendLendingId">
                     <div class="mb-3">
-                        <label class="form-label">Nova data de devolução:</label>
+                        <label class="form-label">New return date:</label>
                         <input type="date" id="extendLendingReturnDate" name="returnDate" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="extendLendingBtn" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="extendLendingBtn" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -180,13 +180,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Novo Estudante</h1>
+                <h1 class="modal-title fs-5">New Student</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="newStudentForm">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Nome:</label>
+                        <label class="form-label">Name:</label>
                         <input type="text" id="studentName" name="name" class="form-control" required>
                     </div>
                     <div class="mb-3">
@@ -194,17 +194,17 @@
                         <input type="email" id="studentEmail" name="email" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Senha:</label>
+                        <label class="form-label">Password:</label>
                         <input type="password" id="studentPassword" name="password" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Nome de Usuário:</label>
+                        <label class="form-label">Username:</label>
                         <input type="text" id="studentUsername" name="username" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="newStudentBtn" class="btn btn-primary">Criar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="newStudentBtn" class="btn btn-primary">Create</button>
                 </div>
             </form>
         </div>
@@ -215,14 +215,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Editar Estudante</h1>
+                <h1 class="modal-title fs-5">Edit Student</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="editStudentForm">
                 <input type="text" hidden name="id" id="editStudentId">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Nome:</label>
+                        <label class="form-label">Name:</label>
                         <input type="text" id="editStudentName" name="name" class="form-control" required>
                     </div>
                     <div class="mb-3">
@@ -230,17 +230,17 @@
                         <input type="email" id="editStudentEmail" name="email" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Senha:</label>
+                        <label class="form-label">Password:</label>
                         <input type="password" id="editStudentPassword" name="password" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Nome de Usuário:</label>
+                        <label class="form-label">Username:</label>
                         <input type="text" id="editStudentUsername" name="username" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="editStudentBtn" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="editStudentBtn" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -250,13 +250,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Novo Professor</h1>
+                <h1 class="modal-title fs-5">New Teacher</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="newTeacherForm">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Nome:</label>
+                        <label class="form-label">Name:</label>
                         <input type="text" id="teacherName" name="name" class="form-control" required>
                     </div>
                     <div class="mb-3">
@@ -264,17 +264,17 @@
                         <input type="email" id="teacherEmail" name="email" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Senha:</label>
+                        <label class="form-label">Password:</label>
                         <input type="password" id="teacherPassword" name="password" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Nome de Usuário:</label>
+                        <label class="form-label">Username:</label>
                         <input type="text" id="teacherUsername" name="username" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="newTeacherBtn" class="btn btn-primary">Criar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="newTeacherBtn" class="btn btn-primary">Create</button>
                 </div>
             </form>
         </div>

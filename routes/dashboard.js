@@ -19,7 +19,7 @@ Router.use(isLoggedIn, isAdmin, (req, res, next) => {
     next();
 });
 
-async function getDashboardStats(type) {
+async function getDashboardStats(type = 'student') {
     const [books, students, lendingsCount] = await Promise.all([
         Book.find().limit(10).exec(),
         User.find({ type: type }).exec(),

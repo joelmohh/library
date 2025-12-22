@@ -18,7 +18,11 @@ if (loginButton) {
             });
             const result = await response.json();
             if (response.ok) {
-                window.location.href = '/dashboard';
+                if(result.type === 'admin'){
+                    window.location.href = '/dashboard';
+                } else {
+                    window.location.href = '/student/home';
+                }
             } else {
                 showToast(result.message || 'Login failed', 'error', 4000);
             }

@@ -1,9 +1,9 @@
 <%- include('sidebar') %>
     <div class="container main-content books-page">
 
-        <h1>Gerenciar Livros</h1>
+        <h1>Manage Books</h1>
         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#bookModal">
-            <i class="fa-solid fa-plus"></i> Adicionar Livro
+            <i class="fa-solid fa-plus"></i> Add New Book
         </button>
         <div class="search-box">
             <div class="search-fields mb-3">
@@ -17,17 +17,17 @@
                 <table class="table" id="booksTable">
                     <thead>
                         <tr>
-                            <th scope="col">Título</th>
-                            <th scope="col">Autor</th>
-                            <th scope="col">Categoria</th>
-                            <th scope="col">Disponibilidade</th>
-                            <th scope="col">Ações</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Availability</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <% if (books.list.length===0) { %>
                             <tr>
-                                <td colspan="4" class="text-center">Nenhum livro encontrado.</td>
+                                <td colspan="5" class="text-center">No books found.</td>
                             </tr>
                             <% } else { %>
                                 <% books.list.forEach(function(book) { %>
@@ -43,9 +43,9 @@
                                         </td>
                                         <td>
                                             <% if(book.disponible){ %>
-                                                <span class="btn btn-sm text-light bg-success">Disponível</span>
+                                                <span class="btn btn-sm text-light bg-success">Available</span>
                                                 <% } else { %>
-                                                    <span class="btn btn-sm text-light bg-danger">Não disponível</span>
+                                                    <span class="btn btn-sm text-light bg-danger">Not Available</span>
                                                     <% } %>
                                         </td>
                                         <td class="action-buttons">
@@ -71,7 +71,7 @@
 
             <div class="pagination-wrapper">
                 <div class="items-controller">
-                    <label for="rowsPerPage">Itens por página:</label>
+                    <label for="rowsPerPage">Items per page:</label>
                     <select class="form-select" id="rowsPerPage">
                         <option value="10" selected>10</option>
                         <option value="20">20</option>

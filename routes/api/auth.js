@@ -68,7 +68,7 @@ Router.post('/login', redirectIfLoggedIn, async (req, res) => {
             }
         };
 
-        res.status(200).send({ status: 'success', message: 'Logged in successfully' });
+        res.status(200).send({ status: 'success', message: 'Logged in successfully', type: user.type });
     } catch (err) {
         c.log('red', `[ERROR] ${err}`);
         res.status(500).send({ status: 'error', message: 'Internal Server Error' });
@@ -82,10 +82,10 @@ Router.get('/logout', getLoginInformation, (req, res) => {
                 c.log('red', `[ERROR] ${err}`);
                 return res.status(500).send({ status: 'error', message: 'Could not log out, try again' });
             }
-            return res.status(200).send({ status: 'success', message: 'Logged out successfully' });
+            return res.status(200).redirect('/auth/login');
         });
     } else {
-        return res.status(200).send({ status: 'success', message: 'Logged out successfully' });
+        return res.status(200).redirect('/auth/login');
     }
 });
 

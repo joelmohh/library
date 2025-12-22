@@ -1,14 +1,14 @@
 <%- include('sidebar') %>
     <div class="container main-content books-page">
 
-        <h1>Gerenciar Empréstimos</h1>
+        <h1>Manage Lendings</h1>
         <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#lendingModal"><i
-                class="fa-solid fa-plus"></i> Novo Empréstimo</button>
+                class="fa-solid fa-plus"></i> New Lending</button>
 
         <div class="search-box">
             <div class="search-fields mb-3">
                 <input type="text" id="searchInputLendings" class="form-control search-field"
-                    placeholder="Search by livro, estudante, ou data">
+                    placeholder="Search by book, student, or date">
                 <button id="searchBtnLendings" class="btn btn-secondary"><i class="fa-solid fa-magnifying-glass"></i>
                     Search</button>
             </div>
@@ -17,18 +17,18 @@
                 <table class="table" id="lendingsTable">
                     <thead>
                         <tr>
-                            <th scope="col">Livro</th>
-                            <th scope="col">Aluno</th>
-                            <th scope="col">Data de Empréstimo</th>
-                            <th scope="col">Data de Devolução</th>
+                            <th scope="col">Book</th>
+                            <th scope="col">Student</th>
+                            <th scope="col">Lending Date</th>
+                            <th scope="col">Return Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Ações</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         <% if (lendings.total===0) { %>
                             <tr>
-                                <td colspan="6" class="text-center">Nenhum empréstimo encontrado.</td>
+                                <td colspan="6" class="text-center">No lending found.</td>
                             </tr>
                             <% } else { %>
                                 <% const today=new Date(); %>
@@ -60,13 +60,13 @@
                                                 </td>
                                                 <td>
                                                     <% if (lending.returned) { %>
-                                                        <span class="btn btn-sm text-light bg-success">Devolvido</span>
+                                                        <span class="btn btn-sm text-light bg-success">Returned</span>
                                                         <% } else if (returnDate && isPast(returnDate)) { %>
                                                             <span
-                                                                class="btn btn-sm text-light bg-danger">Expirado</span>
+                                                                class="btn btn-sm text-light bg-danger">Expired</span>
                                                             <% } else { %>
                                                                 <span
-                                                                    class="btn btn-sm text-dark bg-warning">Emprestado</span>
+                                                                    class="btn btn-sm text-dark bg-warning">Lent</span>
                                                                 <% } %>
                                                 </td>
                                                 <% if (!lending.returned) { %>

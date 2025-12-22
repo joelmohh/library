@@ -27,12 +27,12 @@
                             <%= currentUser.name %>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/dashboard/profile"><i class="fa-solid fa-user"></i> Perfil</a></li>
-                            <li><a class="dropdown-item leave" href="/api/auth/logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/profile"><i class="fa-solid fa-user"></i> Profile</a></li>
+                            <li><a class="dropdown-item leave" href="/api/auth/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                         </ul>
                     </div>
                     <% } else { %>
-                        <span>Não logado</span>
+                        <span>Not logged in</span>
                         <% } %>
             </div>
         </nav>
@@ -46,20 +46,20 @@
     <nav class="sidebar">
         <ul>
             <li class="<%= currentPage === 'home' ? 'active' : '' %>"><a href="/dashboard"><i class="fa-solid fa-house"></i> Home</a></li>
-            <li class="<%= currentPage === 'books' ? 'active' : '' %>"><a href="/dashboard/books"><i class="fa-solid fa-book"></i> Livros</a></li>
-            <li class="<%= currentPage === 'lendings' ? 'active' : '' %>"><a href="/dashboard/lendings"><i class="fa-solid fa-hand-holding-hand"></i> Emprestimos</a>
+            <li class="<%= currentPage === 'books' ? 'active' : '' %>"><a href="/dashboard/books"><i class="fa-solid fa-book"></i> Books</a></li>
+            <li class="<%= currentPage === 'lendings' ? 'active' : '' %>"><a href="/dashboard/lendings"><i class="fa-solid fa-hand-holding-hand"></i> Lendings</a>
             </li>
 
             <li class="dContainer <%= (currentPage === 'users') ? 'active' : '' %>">
                 <div class="dToggle">
-                    <span><i class="fa-solid fa-users"></i> Usuários</span>
+                    <span><i class="fa-solid fa-users"></i> Users</span>
 
                 </div>
                 <ul class="dMenu">
                     <li><a class="dropdown-menu-item" href="/dashboard/users/students"><i
-                                class="fa-solid fa-user-graduate"></i> Alunos</a></li>
+                                class="fa-solid fa-user-graduate"></i> Students </a></li>
                     <li><a class="dropdown-menu-item" href="/dashboard/users/teachers"><i
-                                class="fa-solid fa-chalkboard-teacher"></i> Professores</a></li>
+                                class="fa-solid fa-chalkboard-teacher"></i> Teachers</a></li>
                 </ul>
             </li>
         </ul>
