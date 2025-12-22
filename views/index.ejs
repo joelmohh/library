@@ -91,8 +91,14 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Inicializa paginação
         initTablePagination('tableBody', 'rowsPerPage', 'paginationContainer','btn-prev','btn-next');
+        
+        // Inicializa busca
         initTableSearch('searchInputBooks','searchBtnBooks','tableBody');
+        
+        // Inicializa filtro de disponibilidade
+        initAvailabilityFilter('availabilitySelect', 'tableBody');
     });
 </script>
 
