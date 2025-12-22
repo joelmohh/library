@@ -48,24 +48,20 @@
             <li class="<%= currentPage === 'home' ? 'active' : '' %>"><a href="/dashboard"><i class="fa-solid fa-house"></i> Home</a></li>
             <li class="<%= currentPage === 'books' ? 'active' : '' %>"><a href="/dashboard/books"><i class="fa-solid fa-book"></i> Livros</a></li>
             <li class="<%= currentPage === 'lendings' ? 'active' : '' %>"><a href="/dashboard/lendings"><i class="fa-solid fa-hand-holding-hand"></i> Emprestimos</a>
-            <li class="<%= currentPage === 'categories' ? 'active' : '' %>"><a href="/dashboard/categories"><i class="fa-solid fa-hand-holding-hand"></i> Categorias</a>
             </li>
 
-            <li class="dContainer">
+            <li class="dContainer <%= (currentPage === 'users') ? 'active' : '' %>">
                 <div class="dToggle">
                     <span><i class="fa-solid fa-users"></i> Usuários</span>
 
                 </div>
                 <ul class="dMenu">
-                    <li><a class="dropdown-menu-item" href="/dashboard/users/rooms"><i class="fa-solid fa-users"></i>
-                            Salas</a></li>
                     <li><a class="dropdown-menu-item" href="/dashboard/users/students"><i
                                 class="fa-solid fa-user-graduate"></i> Alunos</a></li>
                     <li><a class="dropdown-menu-item" href="/dashboard/users/teachers"><i
                                 class="fa-solid fa-chalkboard-teacher"></i> Professores</a></li>
                 </ul>
             </li>
-            <li class=""><a href="/dashboard/actions"><i class="fa-regular fa-file-lines"></i> Relatórios</a></li>
         </ul>
     </nav>
     <%- include('modal') %>

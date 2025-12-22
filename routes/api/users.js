@@ -8,7 +8,37 @@ const User = require('../../models/User');
 
 const { getLoginInformation, isAdmin } = require('../../modules/verify');
 
-// REGISTER and LOGIN routes are in auth.js
+Router.post('/register', getLoginInformation, isAdmin, async (req, res) => {
+    try {
+        const { name, email, password, type, username } = req.body;
+
+        if (!name || !email || !password || !type || !username) {
+            return res.status(400).send({ status: 'error', message: 'All fields are required, missing one or more fields' });
+        }
+
+        const existingUser = await User.findOne({ $or: [{ email }, { username }] }).exec();
+        if (existingUser) {
+            return res.status(409).send({ status: 'error', message: 'User with this email or username already exists, try logging in' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+            type,
+            username
+        });
+
+        await newUser.save();
+
+        res.status(201).send({ status: 'success', message: 'User registered successfully' });
+    } catch (err) {
+        c.log('red', `[ERROR] ${err}`);
+        res.status(500).send({ status: 'error', message: 'Internal Server Error' });
+    }
+});
 
 Router.get('/all/:number/:page', getLoginInformation, isAdmin,  async (req, res) => {
     try {

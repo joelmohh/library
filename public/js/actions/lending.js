@@ -1,72 +1,92 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const lendingCreateButton = document.getElementById('lendingCreateButton');
-    if (lendingCreateButton) {
-        lendingCreateButton.addEventListener('click', async (e) => {
-            e.preventDefault();
-            try {
-                const response = await fetch('/api/lendings/create', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        bookId: document.getElementById('bookId').value,
-                        userId: document.getElementById('studentId').value,
-                        returnDate: document.getElementById('lending_returnDate').value
-                    })
-                });
-                const result = await response.json();
-                if (result.status === 'success') {
-                    showToast('Lending created successfully', 'success');
-                    window.location.reload();
-                } else {
-                    showToast(result.message, 'error');
-                }
-            } catch (err) {
-                console.error('Error:', err);
-                showToast('An error occurred while creating the lending', 'error');
-            }
-        });
-    }
+    document.getElementById('newLendingBtn').addEventListener('click', () => {
+        const bookId = document.getElementById('newLendingBook').value;
+        const userId = document.getElementById('newLendingUser').value;
+        const returnDate = document.getElementById('newLendingReturnDate').value;
 
-    const editLendingModal = document.getElementById('editLendingModal');
-    if (editLendingModal) {
-        editLendingModal.addEventListener('show.bs.modal', event => {
-            const button = event.relatedTarget;
-            const item = JSON.parse(button.getAttribute('data-item'));
-            
-            let lendingIdInput = document.getElementById('lendingId');
-            if (!lendingIdInput) {
-                lendingIdInput = document.createElement('input');
-                lendingIdInput.type = 'hidden';
-                lendingIdInput.id = 'lendingId';
-                lendingIdInput.name = 'lendingId';
-                document.getElementById('editLendingForm').appendChild(lendingIdInput);
+        fetch('/api/lendings/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ bookId, userId, returnDate })
+        })        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                location.reload();
+            } else {
+                showToast('Error: ' + data.message, 'error');
             }
-            lendingIdInput.value = item.id;
-        });
-    }
+        }).catch(err => {
+            showToast('Error: ' + err.message, 'error');
+        });        
+    })
 
-    const editLendingForm = document.getElementById('editLendingForm');
-    if (editLendingForm) {
-        editLendingForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                const lendingId = document.getElementById('lendingId').value;
-                const response = await fetch('/api/lendings/return', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ lendingId })
-                });
-                const result = await response.json();
-                if (result.status === 'success') {
-                    showToast('Lending returned successfully', 'success');
-                    window.location.reload();
+    document.querySelectorAll('.returnLendingBtn').forEach(button => {
+        button.addEventListener('click', () => {
+            const lendingData = JSON.parse(button.getAttribute('data-item'));
+            fetch('/api/lendings/return', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lendingId: lendingData })
+            }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
                 } else {
-                    showToast(result.message, 'error');
+                    showToast('Error: ' + data.message, 'error');
                 }
-            } catch (err) {
-                console.error('Error:', err);
-                showToast('An error occurred while returning the lending', 'error');
-            }
+            }).catch(err => {
+                showToast('Error: ' + err.message, 'error');
+            });
         });
-    }
+    });
+    document.querySelectorAll('.deleteLendingBtn').forEach(button => {
+        button.addEventListener('click', () => {
+            const lendingData = JSON.parse(button.getAttribute('data-item'));
+            fetch('/api/lendings/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lendingId: lendingData })
+            }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    showToast('Error: ' + data.message, 'error');
+                }
+            }).catch(err => {
+                showToast('Error: ' + err.message, 'error');
+            });
+        });
+    });
+    document.querySelectorAll('.extendLendingBtn').forEach(button => {
+        button.addEventListener('click', () => {
+            const lendingData = JSON.parse(button.getAttribute('data-item'));
+            document.getElementById('extendLendingId').value = lendingData;
+        });
+    });
+    document.getElementById('extendLendingBtn').addEventListener('click', () => {
+        const lendingData = document.getElementById('extendLendingId').value;
+            fetch('/api/lendings/extend', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lendingId: lendingData, newReturnDate: document.getElementById('extendLendingReturnDate').value })
+            }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    location.reload();
+                } else {
+                    showToast('Error: ' + data.message, 'error');
+                }
+            }).catch(err => {
+                showToast('Error: ' + err.message, 'error');
+            });
+    });
 });

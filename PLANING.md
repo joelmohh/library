@@ -37,11 +37,6 @@
 - <b>PUT</b> `/api/books/update`
 - <b>DELETE</b> `/api/books/delete`
 
-### API Categories Routes
-- <b>GET</b> `/api/categories/all`
-- <b>POST</b> `/api/categories/add`
-- <b>PUT</b> `/api/categories/update`
-- <b>DELETE</b> `/api/categories/delete`
 
 
 

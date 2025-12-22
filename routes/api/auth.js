@@ -182,7 +182,7 @@ Router.get('/me', getLoginInformation, async (req, res) => {
 
 Router.put('/me', getLoginInformation, async (req, res) => {
     try {
-        const { name, username } = req.body;
+        const { name, username, email, password } = req.body;
         const user = await User.findById(req.user.id).exec();
         
         if (!user) {
@@ -191,7 +191,14 @@ Router.put('/me', getLoginInformation, async (req, res) => {
         
         if (name) user.name = name;
         if (username) user.username = username;
-        
+        if (email) user.email = email;
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            user.password = hashedPassword;
+            user.isDefaultPassword = false;
+            user.passwordLastChanged = new Date();
+        }
+
         await user.save();
 
         if (req.session && req.session.user) {

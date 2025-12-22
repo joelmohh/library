@@ -39,7 +39,6 @@ app.use('/api/lendings', require('./routes/api/lendings')); //OK
 app.use('/api/users', require('./routes/api/users')); //OK
 app.use('/api/books', require('./routes/api/books')); //OK
 app.use('/api/auth', require('./routes/api/auth')); // OK
-app.use('/api/categories', require('./routes/api/categories')); // OK
 //app.use('/api/settings', require('./routes/api/settings'));
 app.use('/api/health', require('./routes/api/health')); // OK
 

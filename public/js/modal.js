@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     const forms = ['book', 'user', 'lending', 'category'];
 
     forms.forEach(type => {
@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 modalTitle.textContent = `Novo ${type.charAt(0).toUpperCase() + type.slice(1)}`;
                 form.dataset.mode = 'add';
+                const idInput = form.querySelector('[name="id"]');
+                if (idInput) idInput.value = '';
             }
         });
     });
@@ -75,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     document.addEventListener('click', async (e) => {
         const btn = e.target.closest('.btn-delete');
         if (!btn) return;
@@ -106,4 +107,4 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Erro de conexão', 'error');
         }
     });
-});
+});*/

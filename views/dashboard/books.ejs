@@ -41,21 +41,26 @@
                                         <td>
                                             <%= book.category %>
                                         </td>
-                                        <td><% if(book.disponible){ %>
-                                        <span class="text-success">Disponível</span> 
-                                    <% } else { %>
-                                        <span class="text-danger">Não disponível</span>
-                                    <% } %></td>
+                                        <td>
+                                            <% if(book.disponible){ %>
+                                                <span class="btn btn-sm text-light bg-success">Disponível</span>
+                                                <% } else { %>
+                                                    <span class="btn btn-sm text-light bg-danger">Não disponível</span>
+                                                    <% } %>
+                                        </td>
                                         <td class="action-buttons">
-                                            <button class="btn btn-sm btn-secondary btn-edit" data-bs-toggle="modal"
-                                                data-bs-target="#bookModal" data-bs-item='<%= JSON.stringify(book) %>'>
+                                            <button class="btn btn-sm btn-secondary btn-edit editBookBtn"
+                                                data-bs-toggle="modal" data-bs-target="#editBookModal"
+                                                data-bs-item='<%= JSON.stringify(book) %>'>
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
 
-                                            <button class="btn btn-sm btn-danger btn-delete" data-type="book"
-                                                data-id="<%= book._id %>">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
+
+                                            <button class="btn btn-sm btn-danger btn-delete" data-bs-target="#deleteBookModal" data-bs-toggle="modal"
+    data-id="<%= book._id %>" data-title="<%= book.title %>">
+    <i class="fa-solid fa-trash"></i>
+</button>
+
                                         </td>
                                     </tr>
                                     <% }); %>
@@ -100,5 +105,5 @@
             initTableSearch('searchInputBooks', 'searchBtnBooks', 'tableBody');
         });
     </script>
-
+    <script src="/js/actions/books.js"></script>
     <%- include('../partials/footer') %>

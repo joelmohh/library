@@ -223,3 +223,20 @@ tbody{
     background-color: var(--primary-background);
     color: #fff;
 }
+
+.profileContainer{
+    border: 2px solid var(--secondary-color);
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #252627;
+    max-width: auto;
+    display: flex;
+    flex-direction: column;
+}
+.profileContainer h2, .profileContainer h3{
+    margin-bottom: 20px;
+}
+.profileContainer button{
+    float: right;
+    display: inline;
+}

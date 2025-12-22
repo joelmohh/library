@@ -5,8 +5,6 @@ const { isLoggedIn, isAdmin } = require('../modules/verify');
 const Book = require('../models/Book');
 const User = require('../models/User');
 const Lending = require('../models/Lending');
-const Action = require('../models/Actions');
-const Category = require('../models/Categories');
 
 Router.use(isLoggedIn, isAdmin, (req, res, next) => {
     const user = req.session.user;
@@ -70,10 +68,13 @@ Router.get('/', async (req, res) => {
 
 Router.get('/users/:id', async (req, res) => {
     try {
-        const stats = await getDashboardStats(req.params.id);
+        const type = req.params.id === 'students' ? 'student' : req.params.id === 'teachers' ? 'teacher' : null;
+        if (!type) {
+            return res.status(400).send({ status: 'error', message: 'Invalid user type' });
+        }
+        const stats = await getDashboardStats(type);
         res.render('dashboard/users', {
             ...stats,
-            lendings: { total: stats.lendingsTotal },
             currentPage: 'users',
             title: 'Users',
             page: req.params.id
@@ -113,7 +114,6 @@ Router.get('/lendings', async (req, res) => {
 
         const loans = await Promise.all(
             lendings
-                .filter(lending => !lending.returned)
                 .map(async lending => {
                     const book = await Book.findById(lending.bookId).exec()
                     const user = await User.findById(lending.userId).exec();
@@ -146,48 +146,21 @@ Router.get('/lendings', async (req, res) => {
     }
 });
 
-Router.get('/settings', (req, res) => {
-    res.render('settings/index', {
-        currentPage: 'settings',
-        title: 'Settings'
+Router.get('/profile', async (req, res) => {
+    const [lendings, books, users] = await Promise.all([
+            Lending.find().exec(),
+            Book.find({ disponible: true }).exec(),
+            User.find({ type: 'student' }).exec()
+        ]);
+    res.render('dashboard/profile', {
+        currentPage: 'profile',
+        title: 'Profile',
+        lendings: { list: lendings, total: lendings.length },
+        books: { list: books, total: books.length },
+        users: { list: users, total: users.length }
     });
 });
 
-Router.get('/actions', async (req, res) => {
-    try {
-        const stats = await getDashboardStats(req.params.id);
-        const actions = await Action.find().sort({ createdAt: -1 }).limit(100).exec();
-        res.render('dashboard/actions', {
-            stats,
-            currentPage: 'actions',
-            title: 'Actions Log',
-            actions: { list: actions, total: actions.length }
-        });
-    } catch (err) {
-        c.log('red', `[ERROR] ${err}`);
-        res.status(500).send({ status: 'error', message: 'Internal Server Error' });
-    }
-});
-Router.get('/categories', async (req, res) => {
-    try {
-        const [lendings, books, users] = await Promise.all([
-            Lending.find().populate('bookId userId').exec(),
-            Book.find().exec(),
-            User.find({ type: 'student' }).exec()
-        ]);
 
-        res.render('dashboard/categories', {
-            currentPage: 'categories',
-            title: 'Categories',
-            categories: { list: await Category.find().exec(), total: (await Category.find().exec()).length },
-            lendings: { list: lendings, total: lendings.length },
-            books: { list: books, total: books.length },
-            users: { list: users, total: users.length }
-        });
-    } catch (err) {
-        c.log('red', `[ERROR] ${err}`);
-        res.status(500).send({ status: 'error', message: 'Internal Server Error' });
-    }
-});
 
 module.exports = Router;

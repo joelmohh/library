@@ -28,66 +28,63 @@
                     <tbody id="tableBody">
                         <% if (lendings.total===0) { %>
                             <tr>
-                                <td colspan="5" class="text-center">Nenhum empréstimo encontrado.</td>
+                                <td colspan="6" class="text-center">Nenhum empréstimo encontrado.</td>
                             </tr>
                             <% } else { %>
-                                <% lendings.list.forEach(function(lending) { const lendDate=new Date(lending.lendDate);
-                                    const returnDate=lending.returnDate ? new Date(lending.returnDate) : null; const
-                                    formatDate=(date)=> {
-                                    const day = String(date.getUTCDate()).padStart(2, '0');
-                                    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-                                    const year = date.getUTCFullYear();
-                                    return `${day}/${month}/${year}`;
-                                    };
-                                    %>
-                                    <% const today=new Date(); %> 
-                                        <% lendings.list.forEach(function(lending) { const returnDate=lending.returnDate
-                                            ? new Date(lending.returnDate) : null; 
-                                            const isPast=(date)=> date && date.getTime() <
-                                                today.getTime(); %>
-                                                <tr class="item">
-                                                    <td>
-                                                        <%= lending.book.title %>
-                                                    </td>
-                                                    <td>
-                                                        <%= lending.user.name %>
-                                                    </td>
-                                                    <td>
-                                                        <% const lendDate=new Date(lending.lendDate); const
-                                                            lendDay=String(lendDate.getUTCDate()).padStart(2,'0'); const
-                                                            lendMonth=String(lendDate.getUTCMonth()+1).padStart(2,'0');
-                                                            const lendYear=lendDate.getUTCFullYear(); %>
-                                                            <%= `${lendDay}/${lendMonth}/${lendYear}` %>
-                                                    </td>
-                                                    <td>
-                                                        <% if(returnDate) { const
-                                                            returnDay=String(returnDate.getUTCDate()).padStart(2,'0');
-                                                            const
-                                                            returnMonth=String(returnDate.getUTCMonth()+1).padStart(2,'0');
-                                                            const returnYear=returnDate.getUTCFullYear(); %>
-                                                            <%= `${returnDay}/${returnMonth}/${returnYear}` %>
-                                                                <% } %>
-                                                    </td>
-                                                    <td>
-                                                        <% if(lending.returned) { %>
-                                                            <span class="badge bg-success">Devolvido</span>
-                                                            <% } else if(returnDate && isPast(returnDate)) { %>
-                                                                <span class="badge bg-danger">Expirado</span>
-                                                                <% } else { %>
-                                                                    <span class="badge bg-warning text-dark">Emprestado</span>
-                                                                    <% } %>
-                                                    </td>
-                                                    <td class="action-buttons">
-                                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editLendingModal"
-                                                            data-item='<%= JSON.stringify(lending) %>'>
-                                                            <i class="fa-solid fa-pen-to-square"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <% }); %>
+                                <% const today=new Date(); %>
 
-                                                    <% }); %>
-                                                        <% } %>
+                                    <% lendings.list.forEach(function(lending) { const lendDate=new
+                                        Date(lending.lendDate); const returnDate=lending.returnDate ? new
+                                        Date(lending.returnDate) : null; const isPast=(date)=> date && date.getTime() <
+                                            today.getTime(); const formatDate=(date)=> {
+                                            const day = String(date.getUTCDate()).padStart(2, '0');
+                                            const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+                                            const year = date.getUTCFullYear();
+                                            return `${day}/${month}/${year}`;
+                                            };
+                                            %>
+                                            <tr class="item">
+                                                <td>
+                                                    <%= lending.book.title %>
+                                                </td>
+                                                <td>
+                                                    <%= lending.user.name %>
+                                                </td>
+                                                <td>
+                                                    <%= formatDate(lendDate) %>
+                                                </td>
+                                                <td>
+                                                    <% if (returnDate) { %>
+                                                        <%= formatDate(returnDate) %>
+                                                            <% } %>
+                                                </td>
+                                                <td>
+                                                    <% if (lending.returned) { %>
+                                                        <span class="btn btn-sm text-light bg-success">Devolvido</span>
+                                                        <% } else if (returnDate && isPast(returnDate)) { %>
+                                                            <span
+                                                                class="btn btn-sm text-light bg-danger">Expirado</span>
+                                                            <% } else { %>
+                                                                <span
+                                                                    class="btn btn-sm text-dark bg-warning">Emprestado</span>
+                                                                <% } %>
+                                                </td>
+                                                <% if (!lending.returned) { %>
+                                                <td class="action-buttons">
+                                                    <button class="btn btn-sm btn-primary btn-edit returnLendingBtn" data-item='<%= JSON.stringify(lending.id).replace(", ", "") %>'> <i class="fa-solid fa-rotate-left"></i></button>
+                                                    <button class="btn btn-sm btn-success extendLendingBtn" data-bs-target="#extendLendingModal" data-bs-toggle="modal" data-item="<%= JSON.stringify(lending.id) %>"><i class="fa-solid fa-clock"></i></button>
+                                                </td>
+                                                <% } else { %>
+                                                <td class="action-buttons">
+                                                    <button class="btn btn-sm btn-disabled" disabled><i class="fa-solid fa-rotate-left"></i></button>
+                                                    <button class="btn btn-sm btn-danger deleteLendingBtn" data-item="<%= JSON.stringify(lending.id) %>"><i class="fa-solid fa-trash"></i></button>
+                                                </td>
+
+                                                <% } %>
+                                            </tr>
+                                            <% }); %>
+                                                <% } %>
+
 
                     </tbody>
                 </table>
