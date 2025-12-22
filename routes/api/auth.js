@@ -2,7 +2,7 @@ const Router = require('express').Router();
 const bcrypt = require('bcrypt');
 const c = require('@joelmo/console-color')();
 const jwt = require('jsonwebtoken');
-//const sendEmail = require('../../modules/sendEmail');
+const { sendEmail, passwordResetTemplate } = require('../../modules/sendEmail');
 
 const User = require('../../models/User');
 
@@ -113,12 +113,23 @@ Router.post('/forgot-password', async (req, res) => {
         user.resetPasswordExpires = new Date(Date.now() + 3600000); 
         await user.save();
 
-        // await sendEmail(user.email, 'Password Reset', `Your reset token is: ${resetToken}`);
+        const resetUrl = `${process.env.APP_URL}/auth/reset-password`;
+        const emailTemplate = passwordResetTemplate(user.email, resetToken, resetUrl);
+        
+        const emailResult = await sendEmail(
+            user.email,
+            emailTemplate.subject,
+            emailTemplate.text,
+            emailTemplate.html
+        );
+
+        if (!emailResult.success) {
+            c.log('yellow', `[WARNING] Email not sent, but token generated: ${emailResult.error}`);
+        }
 
         res.status(200).send({ 
             status: 'success', 
-            message: 'If the email exists, a password reset link has been sent',
-            token: resetToken 
+            message: 'If the email exists, a password reset link has been sent'
         });
 
     } catch (err) {

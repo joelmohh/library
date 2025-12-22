@@ -10,6 +10,9 @@ const path = require('path');
 // Colorful console logging (optional)
 const c = require('@joelmo/console-color')()
 
+// Initialize cron jobs
+const { initializeCronJobs } = require('./modules/cronJobs');
+
 // Initialize Express app and setup basic middleware
 const app = express();
 app.use(bodyParser.json());
@@ -26,6 +29,8 @@ app.set('view engine', 'ejs');
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     c.log('green', '[INFO] Connected to MongoDB');
+    
+    initializeCronJobs();
 }).catch(err => {
     c.log('red', '[ERROR] MongoDB connection error:', err);
 });

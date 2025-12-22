@@ -9,7 +9,10 @@ const LendingSchema = new Schema({
     returned: { type: Boolean, default: false },
     createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     returnedBy: { type: Schema.Types.ObjectId, ref: 'User' },
-    returnedAt: { type: Date }
+    returnedAt: { type: Date },
+    overdueNotificationSent: { type: Boolean, default: false },
+    reminderNotificationSent: { type: Boolean, default: false },
+    lastNotificationDate: { type: Date }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Lending', LendingSchema);

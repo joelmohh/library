@@ -36,7 +36,7 @@ function getLoginInformation(req, res, next) {
 function redirectIfLoggedIn(req, res, next) {
     if (req.session && req.session.user) {
         if (req.session.user.type === 'admin') return res.redirect('/dashboard');
-        if (req.session.user.type === 'student') return res.redirect('/student');
+        if (req.session.user.type === 'student') return res.redirect('/student/home');
     }
     return next();
 }

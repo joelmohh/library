@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "populate-books": "node ./modules/populateDB.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,8 @@
     "express": "^5.2.1",
     "express-session": "^1.18.2",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.0.1"
+    "mongoose": "^9.0.1",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.12"
   }
 }
