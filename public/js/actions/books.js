@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Inicializa a validação de ISBN para ambos os modais
+    addISBNValidation('newBookISBN', 'fetchBookDataBtn', 'new');
+    addISBNValidation('editBookISBN', 'fetchBookDataEditBtn', 'edit');
+    
     document.getElementById('bookForm').addEventListener('submit', function (event) {
         event.preventDefault();
         fetch('/api/books/add', {

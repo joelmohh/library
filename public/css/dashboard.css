@@ -240,3 +240,44 @@ tbody{
     float: right;
     display: inline;
 }
+
+/* Estilos para validação de ISBN */
+.input-group .btn-outline-secondary {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.input-group .btn-outline-secondary:hover:not(:disabled) {
+    background-color: var(--secondary-color);
+    color: #000;
+}
+
+.input-group .btn-outline-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.form-control.is-valid {
+    border-color: #28a745;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback,
+.valid-feedback {
+    display: none;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.form-control.is-valid ~ .valid-feedback {
+    display: block;
+    color: #28a745;
+}
+
+.form-control.is-invalid ~ .invalid-feedback {
+    display: block;
+    color: #dc3545;
+}

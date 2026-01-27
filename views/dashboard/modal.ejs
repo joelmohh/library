@@ -28,7 +28,14 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ISBN</label>
-                        <input type="text" id="newBookISBN" name="isbn" class="form-control" required>
+                        <div class="input-group">
+                            <input type="text" id="newBookISBN" name="isbn" class="form-control" required>
+                            <button type="button" id="fetchBookDataBtn" class="btn btn-outline-secondary" disabled title="Buscar dados do livro">
+                                <i class="fa-solid fa-search"></i> Buscar
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">ISBN inválido</div>
+                        <div class="valid-feedback">ISBN válido</div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -64,7 +71,14 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">ISBN</label>
-                        <input type="text" id="editBookISBN" name="isbn" class="form-control" required>
+                        <div class="input-group">
+                            <input type="text" id="editBookISBN" name="isbn" class="form-control" required>
+                            <button type="button" id="fetchBookDataEditBtn" class="btn btn-outline-secondary" disabled title="Buscar dados do livro">
+                                <i class="fa-solid fa-search"></i> Buscar
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">ISBN inválido</div>
+                        <div class="valid-feedback">ISBN válido</div>
                     </div>
                 </div>
                 <div class="modal-footer">

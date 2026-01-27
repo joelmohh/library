@@ -3,6 +3,7 @@ const c = require('@joelmo/console-color')();
 
 const Book = require('../../models/Book');
 const { isAdmin, getLoginInformation } = require('../../modules/verify');
+const { validateISBN } = require('../../modules/isbnValidator');
 
 Router.get('/all/:number/:page', async (req, res) => {
     try {
@@ -73,6 +74,11 @@ Router.post('/add', getLoginInformation, isAdmin, async (req, res) => {
         if (!title || !author || !isbn || !category) {
             return res.status(400).send({ status: 'error', message: 'Missing required fields' });
         }
+        
+        if (!validateISBN(isbn)) {
+            return res.status(400).send({ status: 'error', message: 'Invalid ISBN format' });
+        }
+        
         const newBook = new Book({
             title,
             author,
@@ -92,6 +98,11 @@ Router.put('/update', getLoginInformation, isAdmin, async (req, res) => {
         if (!bookId || !title || !author || !isbn || !category) {
             return res.status(400).send({ status: 'error', message: 'Missing required fields' });
         }
+        
+        if (!validateISBN(isbn)) {
+            return res.status(400).send({ status: 'error', message: 'Invalid ISBN format' });
+        }
+        
         const book = await Book.findById(bookId);
         if (!book) {
             return res.status(404).send({ status: 'error', message: 'Book not found' });
@@ -124,4 +135,72 @@ Router.delete('/delete', getLoginInformation, isAdmin, async (req, res) => {
         return res.status(500).send({ status: 'error', message: 'Internal Server Error' });
     }
 });
+
+Router.get('/google-books/:isbn', async (req, res) => {
+    try {
+        const isbn = req.params.isbn;
+        if (!isbn) {
+            return res.status(400).send({ status: 'error', message: 'ISBN is required' });
+        }
+
+        const https = require('https');
+        const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+
+        https.get(url, (apiRes) => {
+            let data = '';
+
+            apiRes.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            apiRes.on('end', () => {
+                try {
+                    const response = JSON.parse(data);
+                    
+                    if (response.totalItems === 0) {
+                        return res.status(404).send({ 
+                            status: 'error', 
+                            message: 'No book found with this ISBN' 
+                        });
+                    }
+
+                    const bookInfo = response.items[0].volumeInfo;
+                    
+                    const bookData = {
+                        title: bookInfo.title || '',
+                        author: bookInfo.authors ? bookInfo.authors.join(', ') : '',
+                        category: bookInfo.categories ? bookInfo.categories[0] : '',
+                        publisher: bookInfo.publisher || '',
+                        publishedDate: bookInfo.publishedDate || '',
+                        description: bookInfo.description || '',
+                        pageCount: bookInfo.pageCount || 0,
+                        language: bookInfo.language || '',
+                        thumbnail: bookInfo.imageLinks ? bookInfo.imageLinks.thumbnail : ''
+                    };
+
+                    return res.status(200).send({ 
+                        status: 'success', 
+                        data: bookData 
+                    });
+                } catch (parseError) {
+                    c.log('red', `[ERROR] Parsing Google Books API response: ${parseError}`);
+                    return res.status(500).send({ 
+                        status: 'error', 
+                        message: 'Error parsing book data' 
+                    });
+                }
+            });
+        }).on('error', (err) => {
+            c.log('red', `[ERROR] Google Books API request: ${err}`);
+            return res.status(500).send({ 
+                status: 'error', 
+                message: 'Error fetching book data from Google Books' 
+            });
+        });
+    } catch (err) {
+        c.log('red', `[ERROR] ${err}`);
+        return res.status(500).send({ status: 'error', message: 'Internal Server Error' });
+    }
+});
+
 module.exports = Router;
