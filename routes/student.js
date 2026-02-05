@@ -9,7 +9,7 @@ const User = require('../models/User');
 
 Router.get('/home', isLoggedIn, async (req, res) => {
     try {
-        const lendings = await Lending.find({ userId: req.session.user.id }).populate('book').exec();
+        const lendings = await Lending.find({ userId: req.session.user.id }).populate('bookId').exec();
 
         const loadInformations = {
             lending: {
