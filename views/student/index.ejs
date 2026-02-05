@@ -47,7 +47,7 @@
                 <% } else { %>
                 <% loadInformations.lending.list.forEach(function(lending) { %>
                     <tr>
-                        <td><%= lending.bookId.title %></td>
+                        <td><%= lending.bookId ? lending.bookId.title : 'N/A' %></td>
                         <td><%= lending.lendDate.toDateString() %></td>
                         <td><%= lending.returnDate ? lending.returnDate.toDateString() : 'Not returned yet' %></td>
                         <td><%= lending.returned ? 'Returned' : 'On Loan' %></td>
