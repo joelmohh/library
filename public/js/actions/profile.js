@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const result = await response.json();
             if (result.status === 'success') {
-                showToast('Perfil atualizado com sucesso!', 'success');
+                showToast('Profile updated successfully!', 'success');
             }
         } catch (error) {
-            console.error('Erro ao atualizar o perfil:', error);
+            console.error('Error updating profile:', error);
             showToast(error.message, 'error');
         }
     });

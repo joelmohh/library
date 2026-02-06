@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Inicializa a validação de ISBN para ambos os modais
     addISBNValidation('newBookISBN', 'fetchBookDataBtn', 'new');
     addISBNValidation('editBookISBN', 'fetchBookDataEditBtn', 'edit');
     
@@ -14,13 +13,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: document.getElementById('newBookTitle').value,
                 category: document.getElementById('newBookCategory').value,
                 author: document.getElementById('newBookAuthor').value,
-                isbn: document.getElementById('newBookISBN').value
+                isbn: document.getElementById('newBookISBN').value.trim() || null
             })
         })
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    setCookie('message', 'Operação realizada com sucesso!', 1);
+                    setCookie('message', 'Operation completed successfully!', 1);
                     window.location.href = '?status=success';
                     location.reload();
                 } else {
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: document.getElementById('editBookTitle').value,
                 category: document.getElementById('editBookCategory').value,
                 author: document.getElementById('editBookAuthor').value,
-                isbn: document.getElementById('editBookISBN').value
+                isbn: document.getElementById('editBookISBN').value.trim() || null
             })
         })
             .then(response => response.json())
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('editBookTitle').value = book.title;
                 document.getElementById('editBookCategory').value = book.category;
                 document.getElementById('editBookAuthor').value = book.author;
-                document.getElementById('editBookISBN').value = book.isbn;
+                document.getElementById('editBookISBN').value = book.isbn || '';
                 document.getElementById('editBookForm').setAttribute('data-book-id', book._id);
             }
         });

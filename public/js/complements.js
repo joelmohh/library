@@ -1,4 +1,3 @@
-// Dropdown Menu Functionality
 document.addEventListener('DOMContentLoaded', () => {
     const dropdownToggles = document.querySelectorAll('.dToggle');
     const dropdownMenus = document.querySelectorAll('.dMenu');
@@ -27,51 +26,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-/*
-
-async function getLoansData() {
-    try {
-        const response = await fetch('/api/lendings/list');
-        const data = await response.json();
-        if (data.status === 'success') {
-            return data.data;
-        } else {
-            console.error('Failed to fetch loans data:', data.message);
-            showToast('Failed to load loans data', 'error');
-            return null;
-        }
-    } catch (error) {
-        console.error('Error fetching loans data:', error);
-        return null;
-    }
-}
-
-// Dashboard Graph
-const lendings = await JSON.parse(getLoansData());
-
-    const ctx = document
-        .getElementById("loansHistoryChart")
-        .getContext("2d");
-
-    new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: lendings.byDays.labels,
-            datasets: [{
-                label: "Empréstimos",
-                data: lendings.byDays.data,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        precision: 0
-                    }
-                }
-            }
-        }
-    });*/

@@ -38,7 +38,8 @@ async function populateDB() {
             { title: 'Clean Code', category: 'Technology', author: 'Robert C. Martin', isbn: '9780132350884' },
             { title: 'The Pragmatic Programmer', category: 'Technology', author: 'Andrew Hunt and David Thomas', isbn: '9780201616224' },
             { title: 'Introduction to Algorithms', category: 'Technology', author: 'Thomas H. Cormen', isbn: '9780262033848' },
-            { title: 'Design Patterns', category: 'Technology', author: 'Erich Gamma et al.', isbn: '9780201633610' },
+                { title: 'Design Patterns', category: 'Technology', author: 'Erich Gamma et al.', isbn: '9780201633610' },
+                { title: '5', category: 'Fiction', author: 'Unknown', isbn: null },
         ];
         for (const bookData of books) {
             const book = new Book(bookData);

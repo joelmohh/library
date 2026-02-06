@@ -34,7 +34,7 @@
                     <% if (books.length === 0) { %>
                         <tr id="no-result-tableBody">
                             <td colspan="4" class="text-center">
-                                Nenhum livro encontrado.
+                                No books found.
                             </td>
                         </tr>
                     <% } else { %>
@@ -91,13 +91,8 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Inicializa paginação
         initTablePagination('tableBody', 'rowsPerPage', 'paginationContainer','btn-prev','btn-next');
-        
-        // Inicializa busca
         initTableSearch('searchInputBooks','searchBtnBooks','tableBody');
-        
-        // Inicializa filtro de disponibilidade
         initAvailabilityFilter('availabilitySelect', 'tableBody');
     });
 </script>

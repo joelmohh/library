@@ -102,7 +102,6 @@
     color: #000;
 }
 
-/*mobile styles*/
 @media (min-width : 320px) and (max-width: 768px) {
     .sidebar {
         display: none;
@@ -241,7 +240,6 @@ tbody{
     display: inline;
 }
 
-/* Estilos para validação de ISBN */
 .input-group .btn-outline-secondary {
     border-color: var(--secondary-color);
     color: var(--secondary-color);

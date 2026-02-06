@@ -1,12 +1,4 @@
-/*
-    CSS Modules Import
-*/
-
 @import url('toast.css');
-
-/*
-    General Styles
-*/
 :root {
     --primary-color: #090C9B;
     --primary-color-hover: #070aa7;
@@ -105,9 +97,6 @@ body{
 }
 
 
-/*
-    Navbar Styles
-*/
 .navbar {
     padding: 1rem 3rem;
     background-color: var(--primary-background);
@@ -123,9 +112,6 @@ body{
     text-decoration: none;
 }
 
-/* 
-    Search Styles
-*/
 .search-box{
     padding: 20px 10px;
     border-radius: 10px;
@@ -246,9 +232,6 @@ body{
     margin-left: auto;
 }
 
-/*
-    Table Styles
-*/
 .books-render {
     border: 2px solid var(--secondary-color);
     border-radius: 10px;
@@ -290,9 +273,6 @@ body{
 .table tbody tr:last-child td {
     border-bottom: none;
 }
-/*
-    Pagination Styles
-*/
 .pagination-wrapper {
     display: flex;
     justify-content: space-between;
@@ -381,9 +361,6 @@ body{
         width: 100%;
     }
 }
-/*
-    Auth Form Styles
-*/
 .auth-form {
     max-width: 400px;
     margin: 30px auto;
@@ -419,9 +396,6 @@ body{
     margin-top: 15px;
     color: #707070;
 }
-/*
-    Dashboard Styles
-*/
 .dropdown-menu {
     background-color: var(--primary-background);
     border: 2px solid var(--secondary-color);

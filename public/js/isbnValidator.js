@@ -1,22 +1,14 @@
-// Função para validar ISBN-10 e ISBN-13
 function validateISBN(isbn) {
-    // Remove hífens, espaços e outros caracteres não numéricos (exceto X para ISBN-10)
     const cleanISBN = isbn.replace(/[-\s]/g, '').toUpperCase();
-    
-    // Verifica se é ISBN-10
     if (cleanISBN.length === 10) {
         return validateISBN10(cleanISBN);
     }
-    
-    // Verifica se é ISBN-13
     if (cleanISBN.length === 13) {
         return validateISBN13(cleanISBN);
     }
-    
     return false;
 }
 
-// Validação específica para ISBN-10
 function validateISBN10(isbn) {
     if (!/^[0-9]{9}[0-9X]$/.test(isbn)) {
         return false;
@@ -27,14 +19,12 @@ function validateISBN10(isbn) {
         sum += parseInt(isbn[i]) * (10 - i);
     }
     
-    // O último dígito pode ser X (que representa 10)
     const lastChar = isbn[9];
     sum += (lastChar === 'X') ? 10 : parseInt(lastChar);
     
     return sum % 11 === 0;
 }
 
-// Validação específica para ISBN-13
 function validateISBN13(isbn) {
     if (!/^[0-9]{13}$/.test(isbn)) {
         return false;
@@ -49,7 +39,6 @@ function validateISBN13(isbn) {
     return checkDigit === parseInt(isbn[12]);
 }
 
-// Função para buscar dados do livro pela API do Google Books
 async function fetchBookDataFromISBN(isbn, modalType = 'new') {
     const cleanISBN = isbn.replace(/[-\s]/g, '');
     
@@ -60,7 +49,6 @@ async function fetchBookDataFromISBN(isbn, modalType = 'new') {
         if (data.status === 'success' && data.data) {
             const bookData = data.data;
             
-            // Preenche os campos do formulário com base no tipo de modal
             const prefix = modalType === 'edit' ? 'edit' : 'new';
             
             if (bookData.title) {
@@ -73,17 +61,16 @@ async function fetchBookDataFromISBN(isbn, modalType = 'new') {
                 document.getElementById(`${prefix}BookCategory`).value = bookData.category;
             }
             
-            showToast('Dados do livro carregados com sucesso!', 'success');
+            showToast('Book data loaded successfully!', 'success');
         } else {
-            showToast('Nenhum livro encontrado para este ISBN', 'error');
+            showToast('No book found for this ISBN', 'error');
         }
     } catch (error) {
-        showToast('Erro ao buscar dados do livro: ' + error.message, 'error');
+        showToast('Error fetching book data: ' + error.message, 'error');
         console.error('Error:', error);
     }
 }
 
-// Função para adicionar feedback visual de validação
 function addISBNValidation(inputId, buttonId, modalType) {
     const input = document.getElementById(inputId);
     const button = document.getElementById(buttonId);
@@ -94,7 +81,6 @@ function addISBNValidation(inputId, buttonId, modalType) {
         const isbn = this.value.trim();
         
         if (isbn === '') {
-            // Remove classes de validação se o campo estiver vazio
             this.classList.remove('is-valid', 'is-invalid');
             button.disabled = true;
             return;
@@ -111,7 +97,6 @@ function addISBNValidation(inputId, buttonId, modalType) {
         }
     });
     
-    // Evento de clique no botão de busca
     button.addEventListener('click', function() {
         const isbn = input.value.trim();
         if (validateISBN(isbn)) {

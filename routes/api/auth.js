@@ -178,10 +178,6 @@ Router.post('/reset-password', async (req, res) => {
     }
 });
 
-/*
-    User profile routes
-*/
-
 Router.get('/me', getLoginInformation, async (req, res) => {
     try {
         return res.status(200).send({ status: 'success', data: req.user });

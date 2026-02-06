@@ -71,18 +71,18 @@ Router.get('/search/:category/:number/:page', async (req, res) => {
 Router.post('/add', getLoginInformation, isAdmin, async (req, res) => {
     try {
         const { title, author, isbn, category } = req.body;
-        if (!title || !author || !isbn || !category) {
+        if (!title || !author || !category) {
             return res.status(400).send({ status: 'error', message: 'Missing required fields' });
         }
-        
-        if (!validateISBN(isbn)) {
+        const normalizedIsbn = typeof isbn === 'string' ? isbn.trim() : '';
+        if (normalizedIsbn && !validateISBN(normalizedIsbn)) {
             return res.status(400).send({ status: 'error', message: 'Invalid ISBN format' });
         }
-        
+        const isbnValue = normalizedIsbn || null;
         const newBook = new Book({
             title,
             author,
-            isbn,
+            isbn: isbnValue,
             category
         });
         await newBook.save();
@@ -95,21 +95,21 @@ Router.post('/add', getLoginInformation, isAdmin, async (req, res) => {
 Router.put('/update', getLoginInformation, isAdmin, async (req, res) => {
     try {
         const { bookId, title, author, isbn, category } = req.body;
-        if (!bookId || !title || !author || !isbn || !category) {
+        if (!bookId || !title || !author || !category) {
             return res.status(400).send({ status: 'error', message: 'Missing required fields' });
         }
-        
-        if (!validateISBN(isbn)) {
+        const normalizedIsbn = typeof isbn === 'string' ? isbn.trim() : '';
+        if (normalizedIsbn && !validateISBN(normalizedIsbn)) {
             return res.status(400).send({ status: 'error', message: 'Invalid ISBN format' });
         }
-        
+        const isbnValue = normalizedIsbn || null;
         const book = await Book.findById(bookId);
         if (!book) {
             return res.status(404).send({ status: 'error', message: 'Book not found' });
         }
         book.title = title;
         book.author = author;
-        book.isbn = isbn;
+        book.isbn = isbnValue;
         book.category = category;
         await book.save();
         return res.status(200).send({ status: 'success', message: 'Book updated successfully' });

@@ -121,13 +121,13 @@ Library System Team
 <body>
     <div class="container">
         <div class="header">
-            <h1>⚠️ Overdue Loan</h1>
+            <h1>Overdue Loan Notice</h1>
         </div>
         <div class="content">
             <p>Hello <strong>${user.name}</strong>,</p>
             <p>This is a reminder that the loan for the book below is overdue:</p>
             <div class="book-info">
-                <h3>📚 ${book.title}</h3>
+                <h3>${book.title}</h3>
                 ${book.author ? `<p><strong>Author:</strong> ${book.author}</p>` : ''}
                 ${book.isbn ? `<p><strong>ISBN:</strong> ${book.isbn}</p>` : ''}
             </div>
@@ -182,13 +182,13 @@ Library System Team
 <body>
     <div class="container">
         <div class="header">
-            <h1>📅 Return Reminder</h1>
+            <h1>Return Reminder</h1>
         </div>
         <div class="content">
             <p>Hello <strong>${user.name}</strong>,</p>
             <p>This is a reminder that the return deadline for the book below is approaching:</p>
             <div class="book-info">
-                <h3>📚 ${book.title}</h3>
+                <h3>${book.title}</h3>
                 ${book.author ? `<p><strong>Author:</strong> ${book.author}</p>` : ''}
                 ${book.isbn ? `<p><strong>ISBN:</strong> ${book.isbn}</p>` : ''}
             </div>

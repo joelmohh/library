@@ -1,11 +1,3 @@
-/**
- * Sistema integrado de paginação, busca e filtros para tabelas
- * @param {string} tableBodyId - The ID of the table's <tbody>
- * @param {string} rowsSelectId - The ID of the <select> for items per page
- * @param {string} paginationId - The ID of the <ul> where the page numbers are located
- * @param {string} prevBtnId - The ID of the "Previous" button
- * @param {string} nextBtnId - The ID of the "Next" button
- */
 function initTablePagination(tableBodyId, rowsSelectId, paginationId, prevBtnId, nextBtnId) {
     const tableBody = document.getElementById(tableBodyId);
     if (!tableBody) return; 
@@ -18,36 +10,33 @@ function initTablePagination(tableBodyId, rowsSelectId, paginationId, prevBtnId,
 
     let currentPage = 1;
     let rowsPerPage = parseInt(rowsPerPageSelect.value);
-    let filteredRows = [...allRows]; // Rows after search/filter
+    let filteredRows = [...allRows];
 
-    // Função para obter linhas visíveis baseado nos filtros ativos
-    function getVisibleRows() {
+    function getFilteredRows() {
         return allRows.filter(row => {
-            const display = row.style.display;
-            return display === '' || display === 'table-row';
+            const hiddenBySearch = row.classList.contains('hidden-by-search');
+            const hiddenByAvailability = row.classList.contains('hidden-by-availability');
+            return !hiddenBySearch && !hiddenByAvailability;
         });
     }
 
     function displayRows(page, perPage) {
-        filteredRows = getVisibleRows();
+        filteredRows = getFilteredRows();
         const start = (page - 1) * perPage;
         const end = start + perPage;
 
-        // Esconde todas as linhas primeiro
         allRows.forEach(row => {
             if (filteredRows.includes(row)) {
                 row.style.display = 'none';
             }
         });
 
-        // Mostra apenas as linhas da página atual
         filteredRows.forEach((row, index) => {
             if (index >= start && index < end) {
                 row.style.display = ''; 
             }
         });
 
-        // Atualiza mensagem de "nenhum resultado"
         updateNoResultMessage();
         
         setupPaginationButtons(filteredRows.length, perPage, page);
@@ -61,7 +50,7 @@ function initTablePagination(tableBodyId, rowsSelectId, paginationId, prevBtnId,
             if (!noResultRow) {
                 noResultRow = document.createElement('tr');
                 noResultRow.id = `no-result-${tableBodyId}`;
-                noResultRow.innerHTML = '<td colspan="4" class="text-center">Nenhum livro encontrado.</td>';
+                noResultRow.innerHTML = '<td colspan="4" class="text-center">No books found.</td>';
                 tableBody.appendChild(noResultRow);
             } else {
                 noResultRow.style.display = '';
@@ -79,7 +68,6 @@ function initTablePagination(tableBodyId, rowsSelectId, paginationId, prevBtnId,
 
         const pageCount = Math.ceil(totalItems / perPage) || 1;
         
-        // Só mostra números de página se houver itens
         if (totalItems > 0) {
             for (let i = 1; i <= pageCount; i++) {
                 let li = document.createElement('li');
@@ -108,8 +96,7 @@ function initTablePagination(tableBodyId, rowsSelectId, paginationId, prevBtnId,
     }
 
     function updatePage(newPage) {
-        const visibleRows = getVisibleRows();
-        const pageCount = Math.ceil(visibleRows.length / rowsPerPage) || 1;
+        const pageCount = Math.ceil(filteredRows.length / rowsPerPage) || 1;
         if (newPage < 1 || newPage > pageCount) return;
         currentPage = newPage;
         displayRows(currentPage, rowsPerPage);
@@ -128,7 +115,6 @@ function initTablePagination(tableBodyId, rowsSelectId, paginationId, prevBtnId,
         displayRows(currentPage, rowsPerPage);
     };
 
-    // Expõe a função de refresh globalmente para ser chamada pelos filtros
     window.refreshPagination = refresh;
 
     displayRows(currentPage, rowsPerPage);
@@ -147,14 +133,12 @@ function initTableSearch(inputId, buttonId, tableBodyId) {
         const filter = searchInput.value.toLowerCase();
 
         rows.forEach(row => {
-            // Pega apenas o texto das células (ignora elementos hidden)
             const cells = row.querySelectorAll('td');
             let text = '';
             cells.forEach(cell => {
                 text += cell.textContent.toLowerCase() + ' ';
             });
 
-            // Aplica o filtro de busca
             if (text.includes(filter)) {
                 row.classList.remove('hidden-by-search');
             } else {
@@ -162,7 +146,6 @@ function initTableSearch(inputId, buttonId, tableBodyId) {
             }
         });
 
-        // Atualiza a visualização considerando outros filtros
         applyAllFilters();
     }
 
@@ -175,7 +158,6 @@ function initTableSearch(inputId, buttonId, tableBodyId) {
         });
     }
 
-    // Executa busca inicial se houver valor
     if (searchInput.value) {
         executeSearch();
     }
@@ -193,7 +175,7 @@ function initAvailabilityFilter(selectId, tableBodyId) {
         const filterValue = availabilitySelect.value.toLowerCase();
 
         rows.forEach(row => {
-            const availabilityCell = row.querySelector('td:nth-child(4)'); // 4ª coluna = Availability
+            const availabilityCell = row.querySelector('td:nth-child(4)');
             
             if (!availabilityCell) return;
 
@@ -215,14 +197,12 @@ function initAvailabilityFilter(selectId, tableBodyId) {
             }
         });
 
-        // Atualiza a visualização considerando outros filtros
         applyAllFilters();
     }
 
     availabilitySelect.addEventListener('change', applyFilter);
 }
 
-// Função global que aplica todos os filtros e atualiza a paginação
 function applyAllFilters() {
     const tableBody = document.getElementById('tableBody');
     if (!tableBody) return;
@@ -240,7 +220,6 @@ function applyAllFilters() {
         }
     });
 
-    // Atualiza a paginação
     if (typeof window.refreshPagination === 'function') {
         window.refreshPagination();
     }

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .catch(err => {
-            showToast('Erro ao criar aluno', 'error');
+            showToast('Error creating student', 'error');
             console.error(err);
         });
     })
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(err => {
-                showToast('Erro ao deletar usuário', 'error');
+                showToast('Error deleting user', 'error');
                 console.error(err);
             });
         });
@@ -94,14 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .catch(err => {
-            showToast('Erro ao atualizar aluno', 'error');
+            showToast('Error updating student', 'error');
             console.error(err);
         });
     });
-
-
-
-    // TEACHER ACTIONS HERE
     document.getElementById('newTeacherBtn').addEventListener('click', () => {
         fetch('/api/users/register', {
             method: 'POST',
@@ -128,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .catch(err => {
-            showToast('Erro ao criar professor', 'error');
+            showToast('Error creating teacher', 'error');
             console.error(err);
         });
     })

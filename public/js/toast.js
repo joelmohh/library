@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!status) return;
 
     const messages = {
-        success: 'Operação realizada com sucesso!',
-        error: 'Ocorreu um erro ao realizar a operação.'
+        success: 'Operation completed successfully!',
+        error: 'An error occurred while performing the operation.'
     };
 
     const message = getCookie('message') || messages[status];

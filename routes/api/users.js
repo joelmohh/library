@@ -2,7 +2,6 @@ const Router = require('express').Router();
 const bcrypt = require('bcrypt');
 const c = require('@joelmo/console-color')();
 const jwt = require('jsonwebtoken');
-//const sendEmail = require('../../modules/sendEmail');
 
 const User = require('../../models/User');
 

@@ -3,7 +3,6 @@ const c = require('@joelmo/console-color')();
 
 const { isLoggedIn } = require('../modules/verify');
 
-// Load Models
 const Lending = require('../models/Lending');
 const User = require('../models/User');
 
